@@ -8,7 +8,7 @@ import { GREEN_ITEMS } from "@/data/gameData";
 const isSetItem = (name: string) => GREEN_ITEMS.has(name);
 
 // Get the appropriate color class for an item name
-const getItemColorClass = (name: string) => isSetItem(name) ? "text-epic" : "text-legendary";
+const getItemColorClass = (name: string) => (isSetItem(name) ? "text-success" : "text-legendary");
 
 interface BuildItem {
   slot: string;
