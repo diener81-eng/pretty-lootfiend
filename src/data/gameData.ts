@@ -38,7 +38,7 @@ export const SLOT_CONFIG: Record<string, { icon: string; label: string }> = {
   pauldron: { icon: "Shield", label: "Pauldrons" },
   cuirass: { icon: "Shirt", label: "Cuirass" },
   gauntlet: { icon: "Hand", label: "Gauntlets" },
-  greaves: { icon: "Footprints", label: "Greaves" },
+  greaves: { icon: "RectangleVertical", label: "Greaves" },
   boots: { icon: "Footprints", label: "Boots" },
   bracers: { icon: "Grip", label: "Bracers" },
   belt: { icon: "CircleDot", label: "Belt" },
