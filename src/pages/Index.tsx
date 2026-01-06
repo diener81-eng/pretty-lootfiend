@@ -166,20 +166,20 @@ const Index = () => {
               </p>
 
               <div className="flex flex-wrap gap-2 mb-6">
-                <ActionButton onClick={handleSave} variant="primary">
-                  <Save className="w-4 h-4 mr-2" />
+                <ActionButton onClick={handleSave} variant="primary" selectedClass={selectedClass}>
+                  <Save className="w-3.5 h-3.5" />
                   Save now
                 </ActionButton>
-                <ActionButton onClick={handleClear}>
-                  <Trash2 className="w-4 h-4 mr-2" />
+                <ActionButton onClick={handleClear} selectedClass={selectedClass}>
+                  <Trash2 className="w-3.5 h-3.5" />
                   Clear
                 </ActionButton>
-                <ActionButton onClick={exportInventory}>
-                  <Download className="w-4 h-4 mr-2" />
+                <ActionButton onClick={exportInventory} selectedClass={selectedClass}>
+                  <Download className="w-3.5 h-3.5" />
                   Export
                 </ActionButton>
-                <ActionButton onClick={() => fileInputRef.current?.click()}>
-                  <Upload className="w-4 h-4 mr-2" />
+                <ActionButton onClick={() => fileInputRef.current?.click()} selectedClass={selectedClass}>
+                  <Upload className="w-3.5 h-3.5" />
                   Import
                 </ActionButton>
                 <input
