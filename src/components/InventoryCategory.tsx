@@ -47,7 +47,7 @@ export const InventoryCategory = ({
       <button onClick={() => setIsOpen(!isOpen)} className="w-full px-4 py-3 flex items-center justify-between transition-colors bg-popover border shadow-sm rounded-none border-solid border-secondary">
         <div className="flex items-center gap-3">
           {IconComponent && <IconComponent className="w-5 h-5 text-primary" />}
-          <span className="text-lg font-semibold">{name}</span>
+          <span className="text-lg font-semibold font-display">{name}</span>
           <span className="text-sm text-muted-foreground">
             ({ownedCount}/{items.length} owned)
           </span>

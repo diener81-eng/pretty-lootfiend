@@ -21,7 +21,7 @@ export const ClassToggle = ({ selectedClass, onClassChange }: ClassToggleProps) 
         {selectedClass === "arcanist" && (
           <motion.div
             layoutId="classToggle"
-            className="absolute inset-0 bg-primary rounded-full glow-primary"
+            className="absolute inset-0 bg-[hsl(var(--arcanist))] rounded-full glow-arcanist"
             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
           />
         )}

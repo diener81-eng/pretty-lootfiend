@@ -50,6 +50,10 @@
     --glow-primary: 263 70% 55%;
     --glow-accent: 25 95% 55%;
     --glow-success: 142 70% 45%;
+    
+    /* Class colors */
+    --arcanist: 210 100% 50%;
+    --glow-arcanist: 210 100% 50%;
 
     /* Glass effect */
     --glass: 230 25% 15% / 0.6;
@@ -137,6 +141,11 @@
 
   .glow-success {
     box-shadow: 0 0 15px hsl(var(--glow-success) / 0.4);
+  }
+
+  .glow-arcanist {
+    box-shadow: 0 0 20px hsl(var(--glow-arcanist) / 0.3),
+                0 0 40px hsl(var(--glow-arcanist) / 0.15);
   }
 
   .text-gradient {

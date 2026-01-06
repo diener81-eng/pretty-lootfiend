@@ -107,10 +107,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background Effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/5 to-transparent rounded-full" />
+      <div className="fixed inset-0 pointer-events-none transition-colors duration-500">
+        <div className={`absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse transition-colors duration-500 ${
+          selectedClass === "arcanist" ? "bg-[hsl(210_100%_50%/0.1)]" : "bg-accent/10"
+        }`} />
+        <div className={`absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse transition-colors duration-500 ${
+          selectedClass === "arcanist" ? "bg-[hsl(210_100%_50%/0.1)]" : "bg-accent/10"
+        }`} style={{ animationDelay: "1s" }} />
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial rounded-full transition-colors duration-500 ${
+          selectedClass === "arcanist" ? "from-[hsl(210_100%_50%/0.05)]" : "from-accent/5"
+        } to-transparent`} />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8">
