@@ -31,20 +31,20 @@ export interface BuildData {
   isAncientGod?: boolean;
 }
 
-// Slot configuration with icons
-const SLOT_CONFIG: Record<string, { icon: string; label: string }> = {
-  weapon: { icon: "⚔️", label: "Weapon" },
-  helmet: { icon: "🪖", label: "Helmet" },
-  pauldron: { icon: "🛡️", label: "Pauldrons" },
-  cuirass: { icon: "🥋", label: "Cuirass" },
-  gauntlet: { icon: "🧤", label: "Gauntlets" },
-  greaves: { icon: "🦵", label: "Greaves" },
-  boots: { icon: "👢", label: "Boots" },
-  bracers: { icon: "🧤", label: "Bracers" },
-  belt: { icon: "🪢", label: "Belt" },
-  necklace: { icon: "📿", label: "Necklace" },
-  amulet: { icon: "🧿", label: "Amulet" },
-  ring: { icon: "💍", label: "Ring" },
+// Slot configuration with Lucide icon names
+export const SLOT_CONFIG: Record<string, { icon: string; label: string }> = {
+  weapon: { icon: "Sword", label: "Weapon" },
+  helmet: { icon: "Crown", label: "Helmet" },
+  pauldron: { icon: "Shield", label: "Pauldrons" },
+  cuirass: { icon: "Shirt", label: "Cuirass" },
+  gauntlet: { icon: "Hand", label: "Gauntlets" },
+  greaves: { icon: "Footprints", label: "Greaves" },
+  boots: { icon: "Footprints", label: "Boots" },
+  bracers: { icon: "Grip", label: "Bracers" },
+  belt: { icon: "CircleDot", label: "Belt" },
+  necklace: { icon: "Gem", label: "Necklace" },
+  amulet: { icon: "Sparkles", label: "Amulet" },
+  ring: { icon: "Circle", label: "Ring" },
 };
 
 const SLOTS = ["weapon", "helmet", "pauldron", "cuirass", "gauntlet", "greaves", "boots", "bracers", "belt", "necklace", "amulet", "ring"];
