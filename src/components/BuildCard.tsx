@@ -1,9 +1,28 @@
 import { useState } from "react";
-import { ChevronDown, ExternalLink, Check, X, AlertTriangle } from "lucide-react";
+import { ChevronDown, ExternalLink, Check, X, AlertTriangle, Sword, Crown, Shield, Shirt, Hand, Footprints, Grip, CircleDot, Gem, Sparkles, Circle, RectangleVertical, LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { GREEN_ITEMS } from "@/data/gameData";
 
+const ICON_MAP: Record<string, LucideIcon> = {
+  Sword,
+  Crown,
+  Shield,
+  Shirt,
+  Hand,
+  Footprints,
+  Grip,
+  CircleDot,
+  Gem,
+  Sparkles,
+  Circle,
+  RectangleVertical
+};
+
+const renderIcon = (iconName: string) => {
+  const IconComponent = ICON_MAP[iconName];
+  return IconComponent ? <IconComponent className="w-4 h-4 text-primary" /> : null;
+};
 // Check if an item should be displayed in green (set items)
 const isSetItem = (name: string) => GREEN_ITEMS.has(name);
 
@@ -63,7 +82,7 @@ export const BuildCard = ({
       <div className="p-4">
         <div className="flex items-start justify-between mb-3">
           <div>
-            <h3 className="font-display text-lg font-semibold flex items-center gap-2">
+            <h3 className="font-display text-lg font-semibold tracking-wide flex items-center gap-2" style={{ fontVariant: 'small-caps' }}>
               {name}
               <span
                 className={`text-xs px-2 py-0.5 rounded-full ${
@@ -177,8 +196,8 @@ export const BuildCard = ({
                       // Has optimal item
                       <>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span>{item.icon}</span>
-                          <span className="font-medium text-sm">{item.slot}:</span>
+                          {renderIcon(item.icon)}
+                          <span className="font-medium text-sm font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
                           <span className={`text-sm ${getItemColorClass(item.name)}`}>{item.name}</span>
                           <span className="text-xs text-muted-foreground">(optimal)</span>
                         </div>
@@ -198,8 +217,8 @@ export const BuildCard = ({
                       // Has substitute but not optimal
                       <>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span>{item.icon}</span>
-                          <span className="font-medium text-sm">{item.slot}:</span>
+                          {renderIcon(item.icon)}
+                          <span className="font-medium text-sm font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
                           <span className={`text-sm ${getItemColorClass(item.ownedSubstituteName || "")}`}>
                             {item.ownedSubstituteName}
                           </span>
@@ -226,8 +245,8 @@ export const BuildCard = ({
                       // Missing both optimal and substitutes
                       <>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span>{item.icon}</span>
-                          <span className="font-medium text-sm">{item.slot}:</span>
+                          {renderIcon(item.icon)}
+                          <span className="font-medium text-sm font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
                           <span className={`text-sm ${getItemColorClass(item.name)}`}>{item.name}</span>
                           <span className="text-xs text-muted-foreground">(missing)</span>
                         </div>
