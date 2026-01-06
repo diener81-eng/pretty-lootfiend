@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Checkbox } from "@/components/ui/checkbox";
+import { GREEN_ITEMS } from "@/data/gameData";
 
 interface InventoryItem {
   id: string;
@@ -15,6 +16,9 @@ interface InventoryCategoryProps {
   ownedItems: Set<string>;
   onToggleItem: (itemId: string) => void;
 }
+
+// Get the appropriate color class for an item name (set items = green, others = red)
+const getItemColorClass = (name: string) => GREEN_ITEMS.has(name) ? "text-epic" : "text-legendary";
 
 export const InventoryCategory = ({
   icon,
@@ -67,13 +71,7 @@ export const InventoryCategory = ({
                     onCheckedChange={() => onToggleItem(item.id)}
                     className="border-muted-foreground data-[state=checked]:bg-success data-[state=checked]:border-success"
                   />
-                  <span
-                    className={`transition-colors ${
-                      ownedItems.has(item.id)
-                        ? "text-success"
-                        : "text-legendary group-hover:text-foreground"
-                    }`}
-                  >
+                  <span className={getItemColorClass(item.name)}>
                     {item.name}
                   </span>
                 </label>
