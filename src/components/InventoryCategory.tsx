@@ -18,7 +18,7 @@ interface InventoryCategoryProps {
 }
 
 // Get the appropriate color class for an item name (set items = green, others = red)
-const getItemColorClass = (name: string) => GREEN_ITEMS.has(name) ? "text-epic" : "text-legendary";
+const getItemColorClass = (name: string) => (GREEN_ITEMS.has(name) ? "text-success" : "text-legendary");
 
 export const InventoryCategory = ({
   icon,
