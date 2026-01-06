@@ -1,8 +1,37 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { 
+  ChevronDown, 
+  Sword, 
+  Crown, 
+  Shield, 
+  Shirt, 
+  Hand, 
+  Footprints, 
+  Grip, 
+  CircleDot, 
+  Gem, 
+  Sparkles, 
+  Circle,
+  LucideIcon 
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { GREEN_ITEMS } from "@/data/gameData";
+
+// Map icon names to Lucide components
+const ICON_MAP: Record<string, LucideIcon> = {
+  Sword,
+  Crown,
+  Shield,
+  Shirt,
+  Hand,
+  Footprints,
+  Grip,
+  CircleDot,
+  Gem,
+  Sparkles,
+  Circle,
+};
 
 interface InventoryItem {
   id: string;
@@ -30,6 +59,8 @@ export const InventoryCategory = ({
   const [isOpen, setIsOpen] = useState(true);
   const ownedCount = items.filter((item) => ownedItems.has(item.id)).length;
 
+  const IconComponent = ICON_MAP[icon];
+
   return (
     <div className="glass rounded-lg overflow-hidden">
       <button
@@ -37,7 +68,8 @@ export const InventoryCategory = ({
         className="w-full px-4 py-3 flex items-center justify-between hover:bg-secondary/30 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="text-xl">{icon}</span>
+          {IconComponent && <IconComponent className="w-5 h-5 text-primary" />}
+          <span className="font-medium">{name}</span>
           <span className="font-medium">{name}</span>
           <span className="text-sm text-muted-foreground">
             ({ownedCount}/{items.length} owned)
