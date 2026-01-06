@@ -1,20 +1,5 @@
 import { useState } from "react";
-import { 
-  ChevronDown, 
-  Sword, 
-  Crown, 
-  Shield, 
-  Shirt, 
-  Hand, 
-  Footprints, 
-  Grip, 
-  CircleDot, 
-  Gem, 
-  Sparkles, 
-  Circle,
-  RectangleVertical,
-  LucideIcon 
-} from "lucide-react";
+import { ChevronDown, Sword, Crown, Shield, Shirt, Hand, Footprints, Grip, CircleDot, Gem, Sparkles, Circle, RectangleVertical, LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { GREEN_ITEMS } from "@/data/gameData";
@@ -32,14 +17,12 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Gem,
   Sparkles,
   Circle,
-  RectangleVertical,
+  RectangleVertical
 };
-
 interface InventoryItem {
   id: string;
   name: string;
 }
-
 interface InventoryCategoryProps {
   icon: string;
   name: string;
@@ -49,26 +32,19 @@ interface InventoryCategoryProps {
 }
 
 // Get the appropriate color class for an item name (set items = green, others = red)
-const getItemColorClass = (name: string) => (GREEN_ITEMS.has(name) ? "text-success" : "text-legendary");
-
+const getItemColorClass = (name: string) => GREEN_ITEMS.has(name) ? "text-success" : "text-legendary";
 export const InventoryCategory = ({
   icon,
   name,
   items,
   ownedItems,
-  onToggleItem,
+  onToggleItem
 }: InventoryCategoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
-  const ownedCount = items.filter((item) => ownedItems.has(item.id)).length;
-
+  const ownedCount = items.filter(item => ownedItems.has(item.id)).length;
   const IconComponent = ICON_MAP[icon];
-
-  return (
-    <div className="glass rounded-lg overflow-hidden">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-4 py-3 flex items-center justify-between hover:bg-secondary/30 transition-colors"
-      >
+  return <div className="glass rounded-lg overflow-hidden">
+      <button onClick={() => setIsOpen(!isOpen)} className="w-full px-4 py-3 flex items-center justify-between transition-colors bg-popover border shadow-sm rounded-none border-solid border-secondary">
         <div className="flex items-center gap-3">
           {IconComponent && <IconComponent className="w-5 h-5 text-primary" />}
           <span className="text-lg font-semibold">{name}</span>
@@ -76,43 +52,37 @@ export const InventoryCategory = ({
             ({ownedCount}/{items.length} owned)
           </span>
         </div>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
+        <motion.div animate={{
+        rotate: isOpen ? 180 : 0
+      }} transition={{
+        duration: 0.2
+      }}>
           <ChevronDown className="w-5 h-5 text-muted-foreground" />
         </motion.div>
       </button>
 
       <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
+        {isOpen && <motion.div initial={{
+        height: 0,
+        opacity: 0
+      }} animate={{
+        height: "auto",
+        opacity: 1
+      }} exit={{
+        height: 0,
+        opacity: 0
+      }} transition={{
+        duration: 0.2
+      }} className="overflow-hidden">
             <div className="px-4 pb-3 space-y-1">
-              {items.map((item) => (
-                <label
-                  key={item.id}
-                  className="flex items-center gap-3 py-2 px-3 rounded-md cursor-pointer hover:bg-secondary/20 transition-colors group"
-                >
-                  <Checkbox
-                    checked={ownedItems.has(item.id)}
-                    onCheckedChange={() => onToggleItem(item.id)}
-                    className="border-muted-foreground data-[state=checked]:bg-success data-[state=checked]:border-success"
-                  />
+              {items.map(item => <label key={item.id} className="flex items-center gap-3 py-2 px-3 rounded-md cursor-pointer hover:bg-secondary/20 transition-colors group">
+                  <Checkbox checked={ownedItems.has(item.id)} onCheckedChange={() => onToggleItem(item.id)} className="border-muted-foreground data-[state=checked]:bg-success data-[state=checked]:border-success" />
                   <span className={getItemColorClass(item.name)}>
                     {item.name}
                   </span>
-                </label>
-              ))}
+                </label>)}
             </div>
-          </motion.div>
-        )}
+          </motion.div>}
       </AnimatePresence>
-    </div>
-  );
+    </div>;
 };
