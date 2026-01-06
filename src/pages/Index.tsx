@@ -7,7 +7,7 @@ import { BuildCard } from "@/components/BuildCard";
 import { ActionButton } from "@/components/ActionButton";
 import { FilterToggle } from "@/components/FilterToggle";
 import { useInventory } from "@/hooks/useInventory";
-import { arcanistInventory, arcanistBuilds, getItemName, ClassType } from "@/data/gameData";
+import { arcanistInventory, arcanistBuilds, savageInventory, savageBuilds, getItemName, ClassType } from "@/data/gameData";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -30,8 +30,8 @@ const Index = () => {
     importInventory,
   } = useInventory(selectedClass);
 
-  const inventory = selectedClass === "arcanist" ? arcanistInventory : arcanistInventory;
-  const builds = selectedClass === "arcanist" ? arcanistBuilds : arcanistBuilds;
+  const inventory = selectedClass === "arcanist" ? arcanistInventory : savageInventory;
+  const builds = selectedClass === "arcanist" ? arcanistBuilds : savageBuilds;
 
   const handleSave = () => {
     saveInventory();
