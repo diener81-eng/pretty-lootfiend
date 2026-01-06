@@ -82,7 +82,7 @@ export const BuildCard = ({
       <div className="p-4">
         <div className="flex items-start justify-between mb-3">
           <div>
-            <h3 className="font-display text-lg font-semibold tracking-wide flex items-center gap-2" style={{ fontVariant: 'small-caps' }}>
+            <h3 className="font-display text-xl font-semibold tracking-wide flex items-center gap-2" style={{ fontVariant: 'small-caps' }}>
               {name}
               <span
                 className={`text-xs px-2 py-0.5 rounded-full ${
@@ -197,7 +197,7 @@ export const BuildCard = ({
                       <>
                         <div className="flex items-center gap-2 flex-wrap">
                           {renderIcon(item.icon)}
-                          <span className="font-medium text-sm font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
+                          <span className="font-medium text-base font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
                           <span className={`text-sm ${getItemColorClass(item.name)}`}>{item.name}</span>
                           <span className="text-xs text-muted-foreground">(optimal)</span>
                         </div>
@@ -218,7 +218,7 @@ export const BuildCard = ({
                       <>
                         <div className="flex items-center gap-2 flex-wrap">
                           {renderIcon(item.icon)}
-                          <span className="font-medium text-sm font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
+                          <span className="font-medium text-base font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
                           <span className={`text-sm ${getItemColorClass(item.ownedSubstituteName || "")}`}>
                             {item.ownedSubstituteName}
                           </span>
@@ -246,7 +246,7 @@ export const BuildCard = ({
                       <>
                         <div className="flex items-center gap-2 flex-wrap">
                           {renderIcon(item.icon)}
-                          <span className="font-medium text-sm font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
+                          <span className="font-medium text-base font-display tracking-wide" style={{ fontVariant: 'small-caps' }}>{item.slot}:</span>
                           <span className={`text-sm ${getItemColorClass(item.name)}`}>{item.name}</span>
                           <span className="text-xs text-muted-foreground">(missing)</span>
                         </div>
