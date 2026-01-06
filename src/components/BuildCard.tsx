@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ExternalLink, Check, X, AlertTriangle } from "lucide-react";
+import { ChevronDown, ExternalLink, Check, X, AlertTriangle, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 
@@ -8,6 +8,8 @@ interface BuildItem {
   icon: string;
   name: string;
   owned: boolean;
+  hasSubstitute?: boolean;
+  ownedSubstituteName?: string;
   substitutes?: string[];
 }
 
@@ -17,6 +19,7 @@ interface BuildCardProps {
   archetype: string;
   skill: string;
   optimalCount: number;
+  playableCount: number;
   totalItems: number;
   items: BuildItem[];
   warning?: string;
@@ -30,6 +33,7 @@ export const BuildCard = ({
   archetype,
   skill,
   optimalCount,
+  playableCount,
   totalItems,
   items,
   warning,
@@ -39,7 +43,8 @@ export const BuildCard = ({
   const [isOpen, setIsOpen] = useState(false);
   const percentage = Math.round((optimalCount / totalItems) * 100);
   const isComplete = optimalCount === totalItems;
-  const isPlayable = optimalCount >= totalItems * 0.75;
+  const isPlayable = playableCount === totalItems;
+  const usesSubstitutes = isPlayable && !isComplete;
 
   return (
     <motion.div
@@ -100,12 +105,18 @@ export const BuildCard = ({
               className={
                 isComplete
                   ? "text-success"
+                  : usesSubstitutes
+                  ? "text-warning"
                   : isPlayable
                   ? "text-warning"
                   : "text-destructive"
               }
             >
-              {isComplete ? "Complete" : isPlayable ? "Playable" : "Incomplete"}
+              {isComplete 
+                ? "Playable (optimal)" 
+                : usesSubstitutes 
+                ? "Playable (using substitutes)" 
+                : "Incomplete"}
             </span>
           </div>
           <Progress
@@ -140,28 +151,71 @@ export const BuildCard = ({
             <div className="px-4 pb-4 space-y-2 border-t border-border/50 pt-3">
               {items.map((item, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <span className={item.owned ? "text-success" : "text-destructive"}>
-                    {item.owned ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
-                  </span>
+                  {/* Icon: green check for optimal, orange ~ for substitute, red X for missing */}
+                  {item.owned ? (
+                    <span className="text-success">
+                      <Check className="w-4 h-4" />
+                    </span>
+                  ) : item.hasSubstitute ? (
+                    <span className="text-warning font-bold text-lg leading-none">~</span>
+                  ) : (
+                    <span className="text-destructive">
+                      <X className="w-4 h-4" />
+                    </span>
+                  )}
+                  
                   <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span>{item.icon}</span>
-                      <span className="font-medium text-sm">{item.slot}:</span>
-                      <span
-                        className={`text-sm ${
-                          item.owned ? "text-success" : "text-legendary"
-                        }`}
-                      >
-                        {item.name}
-                      </span>
-                      {!item.owned && (
-                        <span className="text-xs text-muted-foreground">(missing)</span>
-                      )}
-                    </div>
-                    {item.substitutes && item.substitutes.length > 0 && (
-                      <p className="text-xs text-muted-foreground mt-0.5 ml-6">
-                        Substitutes: {item.substitutes.join(", ")}
-                      </p>
+                    {/* Main item display */}
+                    {item.owned ? (
+                      // Has optimal item
+                      <>
+                        <div className="flex items-center gap-2">
+                          <span>{item.icon}</span>
+                          <span className="font-medium text-sm">{item.slot}:</span>
+                          <span className="text-sm text-success">{item.name}</span>
+                          <span className="text-xs text-muted-foreground">(optimal)</span>
+                        </div>
+                        {/* Show substitutes info if any */}
+                        {item.substitutes && item.substitutes.length > 0 && (
+                          <p className="text-xs text-muted-foreground mt-0.5 ml-6">
+                            Substitutes: {item.substitutes.join(", ")}
+                          </p>
+                        )}
+                      </>
+                    ) : item.hasSubstitute ? (
+                      // Has substitute but not optimal
+                      <>
+                        <div className="flex items-center gap-2">
+                          <span>{item.icon}</span>
+                          <span className="font-medium text-sm">{item.slot}:</span>
+                          <span className="text-sm text-warning">{item.ownedSubstituteName}</span>
+                          <span className="text-xs text-muted-foreground">(playable, not optimal)</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-0.5 ml-6">
+                          Optimal item: <span className="text-legendary">{item.name}</span>
+                        </p>
+                        {/* Show other substitutes if any */}
+                        {item.substitutes && item.substitutes.length > 1 && (
+                          <p className="text-xs text-muted-foreground mt-0.5 ml-6">
+                            Other substitutes: {item.substitutes.filter(s => s !== item.ownedSubstituteName).join(", ")}
+                          </p>
+                        )}
+                      </>
+                    ) : (
+                      // Missing both optimal and substitutes
+                      <>
+                        <div className="flex items-center gap-2">
+                          <span>{item.icon}</span>
+                          <span className="font-medium text-sm">{item.slot}:</span>
+                          <span className="text-sm text-legendary">{item.name}</span>
+                          <span className="text-xs text-muted-foreground">(missing)</span>
+                        </div>
+                        {item.substitutes && item.substitutes.length > 0 && (
+                          <p className="text-xs text-muted-foreground mt-0.5 ml-6">
+                            Substitutes: {item.substitutes.join(", ")}
+                          </p>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>

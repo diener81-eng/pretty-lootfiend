@@ -60,6 +60,9 @@ const Index = () => {
     }
   };
 
+  // Helper to convert substitute name to ID
+  const nameToId = (name: string) => name.toLowerCase().replace(/['']/g, "").replace(/\s+/g, "-");
+
   const processedBuilds = builds
     .filter((build) => {
       if (!filters.pve && build.type === "PvE") return false;
@@ -68,19 +71,31 @@ const Index = () => {
       return true;
     })
     .map((build) => {
-      const items = build.items.map((item) => ({
-        slot: item.slot,
-        icon: item.icon,
-        name: getItemName(item.itemId, inventory),
-        owned: ownedItems.has(item.itemId),
-        substitutes: item.substitutes,
-      }));
+      const items = build.items.map((item) => {
+        const optimalOwned = ownedItems.has(item.itemId);
+        const substituteIds = (item.substitutes || []).map(nameToId);
+        const ownedSubstitute = substituteIds.find((subId) => ownedItems.has(subId));
+        const ownedSubstituteName = ownedSubstitute 
+          ? item.substitutes?.[substituteIds.indexOf(ownedSubstitute)] 
+          : undefined;
+
+        return {
+          slot: item.slot,
+          icon: item.icon,
+          name: getItemName(item.itemId, inventory),
+          owned: optimalOwned,
+          hasSubstitute: !optimalOwned && !!ownedSubstitute,
+          ownedSubstituteName,
+          substitutes: item.substitutes,
+        };
+      });
       const optimalCount = items.filter((i) => i.owned).length;
-      return { ...build, items, optimalCount, totalItems: items.length };
+      const playableCount = items.filter((i) => i.owned || i.hasSubstitute).length;
+      return { ...build, items, optimalCount, playableCount, totalItems: items.length };
     })
     .filter((build) => {
       if (filters.playableOnly) {
-        return build.optimalCount >= build.totalItems * 0.75;
+        return build.playableCount === build.totalItems;
       }
       return true;
     })
@@ -239,6 +254,7 @@ const Index = () => {
                         archetype={build.archetype}
                         skill={build.skill}
                         optimalCount={build.optimalCount}
+                        playableCount={build.playableCount}
                         totalItems={build.totalItems}
                         items={build.items}
                         warning={build.warning}
