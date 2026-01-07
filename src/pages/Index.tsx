@@ -234,7 +234,7 @@ const Index = () => {
                 />
               </div>
 
-              <div className="space-y-3 md:space-y-4 max-h-[60vh] md:max-h-[calc(100vh-350px)] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-3 md:space-y-4 max-h-[50vh] md:max-h-[calc(100vh-400px)] overflow-y-auto pr-2 custom-scrollbar">
                 <AnimatePresence mode="popLayout">
                   {processedBuilds.map((build) => (
                     <motion.div
