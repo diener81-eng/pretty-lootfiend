@@ -106,7 +106,7 @@ const Index = () => {
   const totalItems = inventory.reduce((acc, cat) => acc + cat.items.length, 0);
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen bg-background relative">
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none transition-colors duration-500">
         <div
@@ -126,12 +126,12 @@ const Index = () => {
         />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        {/* Header */}
-        <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <Sparkles className="w-8 h-8 text-legendary animate-pulse" />
-            <h1 className="text-4xl md:text-5xl font-display font-bold">
+      <div className="relative z-10 container mx-auto px-3 md:px-4 py-4 md:py-8">
+        {/* Header - More compact on mobile */}
+        <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-4 md:mb-10">
+          <div className="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-3">
+            <Sparkles className="w-5 h-5 md:w-8 md:h-8 text-legendary animate-pulse" />
+            <h1 className="text-2xl md:text-5xl font-display font-bold">
               <span className="text-accent tracking-wide" style={{ fontVariant: "small-caps" }}>
                 Lootfiend
               </span>{" "}
@@ -139,58 +139,58 @@ const Index = () => {
                 Build Tracker
               </span>
             </h1>
-            <Sparkles className="w-8 h-8 text-legendary animate-pulse" />
+            <Sparkles className="w-5 h-5 md:w-8 md:h-8 text-legendary animate-pulse" />
           </div>
           
-          <p className="text-muted-foreground mb-6 text-sm md:text-base">
+          <p className="text-muted-foreground mb-3 md:mb-6 text-xs md:text-base hidden md:block">
             Saves in your browser, or export json. Arcanist and Savage are stored separately.
           </p>
           <ClassToggle selectedClass={selectedClass} onClassChange={setSelectedClass} />
         </motion.header>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-4 md:gap-8">
           {/* Inventory Panel */}
           <motion.section initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
-            <div className="glass rounded-2xl p-6">
-              <div className="flex items-center justify-between mb-4">
+            <div className="glass rounded-2xl p-4 md:p-6 border border-border/50 bg-card/80">
+              <div className="flex items-center justify-between mb-3 md:mb-4">
                 <div>
                   <h2
-                    className="text-2xl font-display font-semibold tracking-wide"
+                    className="text-xl md:text-2xl font-display font-semibold tracking-wide"
                     style={{ fontVariant: "small-caps" }}
                   >
                     Your Inventory
                   </h2>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     {totalOwned}/{totalItems} items owned
                   </p>
                 </div>
               </div>
 
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4 hidden md:block">
                 Check the items you own. This list is from all items used in the wiki builds (including substitutes).
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-1.5 md:gap-2 mb-4 md:mb-6">
                 <ActionButton onClick={handleSave} variant="primary" selectedClass={selectedClass}>
-                  <Save className="w-3.5 h-3.5" />
-                  Save now
+                  <Save className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                  <span className="text-xs md:text-sm">Save</span>
                 </ActionButton>
                 <ActionButton onClick={handleClear} selectedClass={selectedClass}>
-                  <Trash2 className="w-3.5 h-3.5" />
-                  Clear
+                  <Trash2 className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                  <span className="text-xs md:text-sm">Clear</span>
                 </ActionButton>
                 <ActionButton onClick={exportInventory} selectedClass={selectedClass}>
-                  <Download className="w-3.5 h-3.5" />
-                  Export
+                  <Download className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                  <span className="text-xs md:text-sm">Export</span>
                 </ActionButton>
                 <ActionButton onClick={() => fileInputRef.current?.click()} selectedClass={selectedClass}>
-                  <Upload className="w-3.5 h-3.5" />
-                  Import
+                  <Upload className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                  <span className="text-xs md:text-sm">Import</span>
                 </ActionButton>
                 <input ref={fileInputRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
               </div>
 
-              <div className="space-y-3 max-h-[calc(100vh-400px)] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-2 md:space-y-3 max-h-[50vh] md:max-h-[calc(100vh-400px)] overflow-y-auto pr-2 custom-scrollbar">
                 {inventory.map((category) => (
                   <InventoryCategory
                     key={category.name}
@@ -207,18 +207,18 @@ const Index = () => {
 
           {/* Builds Panel */}
           <motion.section initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-            <div className="glass rounded-2xl p-6">
+            <div className="glass rounded-2xl p-4 md:p-6 border border-border/50 bg-card/80">
               <h2
-                className="text-2xl font-display font-semibold mb-4 tracking-wide"
+                className="text-xl md:text-2xl font-display font-semibold mb-3 md:mb-4 tracking-wide"
                 style={{ fontVariant: "small-caps" }}
               >
-                Popular Compatible Builds
+                Popular Builds
               </h2>
 
-              <div className="flex flex-wrap items-center gap-2 mb-6">
-                <span className="text-sm text-muted-foreground">Filters:</span>
+              <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-6">
+                <span className="text-xs md:text-sm text-muted-foreground">Filters:</span>
                 <FilterToggle
-                  label="Playable only"
+                  label="Playable"
                   active={filters.playableOnly}
                   onToggle={() => setFilters((f) => ({ ...f, playableOnly: !f.playableOnly }))}
                 />
@@ -235,14 +235,14 @@ const Index = () => {
                   variant="pvp"
                 />
                 <FilterToggle
-                  label="Ancient God"
+                  label="Ancient"
                   active={filters.ancientGod}
                   onToggle={() => setFilters((f) => ({ ...f, ancientGod: !f.ancientGod }))}
                   variant="legendary"
                 />
               </div>
 
-              <div className="space-y-4 max-h-[calc(100vh-350px)] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-3 md:space-y-4 max-h-[60vh] md:max-h-[calc(100vh-350px)] overflow-y-auto pr-2 custom-scrollbar">
                 <AnimatePresence mode="popLayout">
                   {processedBuilds.map((build) => (
                     <motion.div
@@ -271,7 +271,7 @@ const Index = () => {
                 </AnimatePresence>
 
                 {processedBuilds.length === 0 && (
-                  <div className="text-center py-12 text-muted-foreground">
+                  <div className="text-center py-8 md:py-12 text-muted-foreground">
                     <p>No builds match your current filters.</p>
                     <p className="text-sm mt-1">Try adjusting the filters above.</p>
                   </div>
@@ -286,21 +286,21 @@ const Index = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-center mt-12 text-muted-foreground text-sm"
+          className="text-center mt-6 md:mt-12 text-muted-foreground text-xs md:text-sm"
         >
-        <p>
-          Data sourced from{" "}
-          <a
-            href="https://lootbornwarriors.miraheze.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Lootborn Warriors Wiki
-          </a>
-        </p>
-        <p className="text-[10px] text-muted-foreground/40 mt-2">v3.26</p>
-      </motion.footer>
+          <p>
+            Data sourced from{" "}
+            <a
+              href="https://lootbornwarriors.miraheze.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Lootborn Warriors Wiki
+            </a>
+          </p>
+          <p className="text-[10px] text-muted-foreground/40 mt-2">v3.26</p>
+        </motion.footer>
       </div>
     </div>
   );
