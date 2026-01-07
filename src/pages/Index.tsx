@@ -23,7 +23,6 @@ const Index = () => {
     playableOnly: false,
     pve: true,
     pvp: true,
-    ancientGod: true,
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -68,7 +67,6 @@ const Index = () => {
     .filter((build) => {
       if (!filters.pve && build.type === "PvE") return false;
       if (!filters.pvp && build.type === "PvP") return false;
-      if (!filters.ancientGod && build.isAncientGod) return false;
       return true;
     })
     .map((build) => {
@@ -151,7 +149,7 @@ const Index = () => {
         <div className="grid lg:grid-cols-2 gap-4 md:gap-8">
           {/* Inventory Panel */}
           <motion.section initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
-            <div className="glass rounded-2xl p-4 md:p-6 border border-border/50 bg-card/80">
+            <div className="glass rounded-2xl p-4 md:p-6 border border-border bg-card">
               <div className="flex items-center justify-between mb-3 md:mb-4">
                 <div>
                   <h2
@@ -207,7 +205,7 @@ const Index = () => {
 
           {/* Builds Panel */}
           <motion.section initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-            <div className="glass rounded-2xl p-4 md:p-6 border border-border/50 bg-card/80">
+            <div className="glass rounded-2xl p-4 md:p-6 border border-border bg-card">
               <h2
                 className="text-xl md:text-2xl font-display font-semibold mb-3 md:mb-4 tracking-wide"
                 style={{ fontVariant: "small-caps" }}
@@ -233,12 +231,6 @@ const Index = () => {
                   active={filters.pvp}
                   onToggle={() => setFilters((f) => ({ ...f, pvp: !f.pvp }))}
                   variant="pvp"
-                />
-                <FilterToggle
-                  label="Ancient"
-                  active={filters.ancientGod}
-                  onToggle={() => setFilters((f) => ({ ...f, ancientGod: !f.ancientGod }))}
-                  variant="legendary"
                 />
               </div>
 

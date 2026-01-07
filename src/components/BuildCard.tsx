@@ -83,7 +83,7 @@ export const BuildCard = ({
         <div className="flex items-start justify-between mb-3">
           <div>
             <h3 className="font-display text-xl font-semibold tracking-wide flex items-center gap-2" style={{ fontVariant: 'small-caps' }}>
-              {name}
+              {name}{isAncientGod && " Ancient God"}
               <span
                 className={`text-xs px-2 py-0.5 rounded-full ${
                   type === "PvE"
@@ -93,11 +93,6 @@ export const BuildCard = ({
               >
                 {type}
               </span>
-              {isAncientGod && (
-                <span className="text-xs px-2 py-0.5 rounded-full bg-legendary/20 text-legendary">
-                  Ancient God
-                </span>
-              )}
             </h3>
             <p className="text-sm text-muted-foreground">
               {archetype} • {skill} • {optimalCount}/{totalItems} optimal
