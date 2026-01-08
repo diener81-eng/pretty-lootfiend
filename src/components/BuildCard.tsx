@@ -103,7 +103,7 @@ export const BuildCard = ({
               href={wikiUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-accent hover:text-accent/80 transition-colors"
             >
               <ExternalLink className="w-4 h-4" />
             </a>
