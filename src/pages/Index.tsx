@@ -214,8 +214,12 @@ const Index = () => {
                 className="text-xl md:text-2xl font-display font-semibold mb-3 md:mb-4 tracking-wide"
                 style={{ fontVariant: "small-caps" }}
               >
-                Popular Builds
+              Popular Builds
               </h2>
+
+              <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4 hidden md:block">
+                Check off items you own. Builds sort by completion — complete builds appear green at the top. Use filters to hide PvE or PvP builds.
+              </p>
 
               <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-6">
                 <span className="text-xs md:text-sm text-muted-foreground">Filters:</span>
