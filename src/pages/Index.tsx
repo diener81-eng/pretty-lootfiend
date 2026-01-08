@@ -217,6 +217,10 @@ const Index = () => {
                 Popular Builds
               </h2>
 
+              <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
+                This is an auto sorting list of all the popular builds with links to the wiki.
+              </p>
+
               <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-6">
                 <span className="text-xs md:text-sm text-muted-foreground">Filters:</span>
                 <FilterToggle
