@@ -217,18 +217,25 @@ const Index = () => {
           {/* Builds Panel */}
           <motion.section initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
             <div className="glass rounded-2xl p-4 md:p-6 border border-border bg-card">
-              <h2
-                className="text-xl md:text-2xl font-display font-semibold mb-3 md:mb-4 tracking-wide"
-                style={{ fontVariant: "small-caps" }}
-              >
-                Popular Builds
-              </h2>
+              <div className="flex items-center justify-between mb-3 md:mb-4">
+                <div>
+                  <h2
+                    className="text-xl md:text-2xl font-display font-semibold tracking-wide"
+                    style={{ fontVariant: "small-caps" }}
+                  >
+                    Popular Builds
+                  </h2>
+                  <p className="text-xs md:text-sm text-muted-foreground">
+                    {processedBuilds.length} builds available
+                  </p>
+                </div>
+              </div>
 
-              <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
+              <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4 hidden md:block">
                 This is an auto sorting list of all the popular builds with links to the wiki.
               </p>
 
-              <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-6">
+              <div className="flex flex-wrap items-center gap-1.5 md:gap-2 mb-4 md:mb-6 min-h-[32px] md:min-h-[36px]">
                 <span className="text-xs md:text-sm text-muted-foreground">Filters:</span>
                 <FilterToggle
                   label="Playable"
