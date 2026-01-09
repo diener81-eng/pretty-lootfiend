@@ -67,10 +67,12 @@ export const BuildCard = ({
   isAncientGod,
 }: BuildCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const percentage = Math.round((optimalCount / totalItems) * 100);
+  const optimalPercentage = Math.round((optimalCount / totalItems) * 100);
+  const playablePercentage = Math.round((playableCount / totalItems) * 100);
   const isComplete = optimalCount === totalItems;
   const isPlayable = playableCount === totalItems;
   const usesSubstitutes = isPlayable && !isComplete;
+  const hasSubstituteBenefit = playableCount > optimalCount;
 
   return (
     <motion.div
@@ -119,9 +121,16 @@ export const BuildCard = ({
 
         <div className="space-y-2 mb-3">
           <div className="flex items-center justify-between text-sm">
-            <span className={percentage === 100 ? "text-success" : "text-muted-foreground"}>
-              Optimal: {percentage}%
-            </span>
+            <div className="flex items-center gap-2">
+              <span className={optimalPercentage === 100 ? "text-success" : "text-muted-foreground"}>
+                Optimal: {optimalPercentage}%
+              </span>
+              {hasSubstituteBenefit && (
+                <span className="text-warning">
+                  • Playable: {playablePercentage}%
+                </span>
+              )}
+            </div>
             <span
               className={
                 isComplete
@@ -140,10 +149,28 @@ export const BuildCard = ({
                 : "Incomplete"}
             </span>
           </div>
-          <Progress
-            value={percentage}
-            className="h-2 bg-secondary"
-          />
+          {/* Dual progress bar showing optimal (solid) and playable (striped overlay) */}
+          <div className="relative h-2">
+            <Progress
+              value={optimalPercentage}
+              className="h-2 bg-secondary absolute inset-0"
+            />
+            {hasSubstituteBenefit && (
+              <div 
+                className="absolute inset-y-0 left-0 h-2 rounded-full bg-warning/40"
+                style={{ 
+                  width: `${playablePercentage}%`,
+                  background: `repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    hsl(var(--warning) / 0.4) 2px,
+                    hsl(var(--warning) / 0.4) 4px
+                  )`
+                }}
+              />
+            )}
+          </div>
         </div>
 
         <button

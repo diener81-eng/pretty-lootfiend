@@ -98,7 +98,14 @@ const Index = () => {
       }
       return true;
     })
-    .sort((a, b) => b.optimalCount / b.totalItems - a.optimalCount / a.totalItems);
+    .sort((a, b) => {
+      // First sort by playable percentage (builds closer to playable rise to top)
+      const playableA = a.playableCount / a.totalItems;
+      const playableB = b.playableCount / b.totalItems;
+      if (playableB !== playableA) return playableB - playableA;
+      // Then by optimal percentage as tiebreaker
+      return b.optimalCount / b.totalItems - a.optimalCount / a.totalItems;
+    });
 
   const totalOwned = [...ownedItems].length;
   const totalItems = inventory.reduce((acc, cat) => acc + cat.items.length, 0);
